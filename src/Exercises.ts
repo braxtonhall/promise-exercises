@@ -31,6 +31,7 @@ function promiseToPrint(message: string): Promise<void> {
  * If there is an error, reject with "oopsie"
  */
 function printAReply(): Promise<void> {
+    // TODO
     promiseToPrint("Hello");
     promiseToPrint("Elisa.");
     promiseToPrint("I'm");
@@ -47,6 +48,7 @@ function printAReply(): Promise<void> {
  * If there is an error, reject with "oopsie"
  */
 function getMidtermSubjects(): Promise<string[]> {
+    // TODO
     const futureMidterm1Subjects = AsyncService.getMidterm1Subjects();
     const futureMidterm2Subjects = AsyncService.getMidterm2Subjects();
     const futureMidterm3Subjects = AsyncService.getMidterm3Subjects();
