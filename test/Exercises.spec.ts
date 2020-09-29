@@ -62,7 +62,7 @@ describe("Exercise Validation", function () {
     });
 
     // printAReply
-    it("Should make print a response", function () {
+    it("Should print a response", function () {
         // 1 in 720 chance of passing even if not synchronized
         return Exercises.printAReply().then(() => {
             expect(mockConsole.log).to.deep.equal([

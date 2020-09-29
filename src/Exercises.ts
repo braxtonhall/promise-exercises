@@ -3,6 +3,7 @@ import AsyncService from "./services/impl/AsyncService";
 /**
  * Using only AsyncService.printAndThen(..);
  * Print in order: "Hello," "class." "How are you?"
+ * If there is an error, should console.error("oopsie")
  * HINT: You shouldn't need to use Promises
  */
 function printAWelcome(): void {
@@ -13,7 +14,8 @@ function printAWelcome(): void {
 
 /**
  * Turn AsyncService.printAndThen(..) into a Promise
- * that only resolves after it has printed
+ * that only resolves after it has printed.
+ * If there is an error, reject with the error.
  * HINT: start by returning a new Promise
  * @param message
  */
@@ -28,7 +30,7 @@ function promiseToPrint(message: string): Promise<void> {
  * \footnote{Can you imagine writing this with AsyncService.printAndThen(..) ???}
  * You want to print "Hello" and _then_ print "Elisa."
  *
- * If there is an error, reject with "oopsie"
+ * If there is an error, should console.error("oopsie")
  */
 function printAReply(): Promise<void> {
     // TODO
@@ -45,7 +47,7 @@ function printAReply(): Promise<void> {
  * Return a Promise that resolves with a single
  * array containing all midterm subjects
  *
- * If there is an error, reject with "oopsie"
+ * If there is an error, should console.error("oopsie") and resolve with []
  */
 function getMidtermSubjects(): Promise<string[]> {
     // TODO
