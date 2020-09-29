@@ -7,9 +7,23 @@ import AsyncService from "./services/impl/AsyncService";
  * HINT: You shouldn't need to use Promises
  */
 function printAWelcome(): void {
-    // TODO
-    AsyncService.printAndThen("Hello,", (tmp) => tmp);
-    throw new Error("Stub - Not Implemented");
+    AsyncService.printAndThen("Hello,", (error) => {
+        if (error === null) {
+            AsyncService.printAndThen("class.", ((error1) => {
+                if (error1 === null) {
+                    AsyncService.printAndThen("How are you?", (error2) => {
+                        if (error2 !== null) {
+                            console.error("oopsie!");
+                        }
+                    });
+                } else {
+                    console.error("oopsie!");
+                }
+            }));
+        } else {
+            console.error("oopsie!");
+        }
+    });
 }
 
 /**
@@ -20,8 +34,15 @@ function printAWelcome(): void {
  * @param message
  */
 function promiseToPrint(message: string): Promise<void> {
-    // TODO
-    return Promise.reject(new Error("Stub - Not Implemented"));
+    return new Promise((resolve, reject) => {
+        AsyncService.printAndThen(message, (error) => {
+            if (error === null) {
+                return resolve();
+            } else {
+                return reject(error);
+            }
+        });
+    });
 }
 
 /**
@@ -33,14 +54,13 @@ function promiseToPrint(message: string): Promise<void> {
  * If there is an error, should console.error("oopsie")
  */
 function printAReply(): Promise<void> {
-    // TODO
-    promiseToPrint("Hello");
-    promiseToPrint("Elisa.");
-    promiseToPrint("I'm");
-    promiseToPrint("excited");
-    promiseToPrint("for");
-    promiseToPrint("lecture!");
-    return Promise.reject(new Error("Stub - Not Implemented"));
+    return promiseToPrint("Hello")
+        .then(() => promiseToPrint("Elisa."))
+        .then(() => promiseToPrint("I'm"))
+        .then(() => promiseToPrint("excited"))
+        .then(() => promiseToPrint("for"))
+        .then(() => promiseToPrint("lecture!"))
+        .catch(() => console.error("oopsie"));
 }
 
 /**
@@ -50,12 +70,25 @@ function printAReply(): Promise<void> {
  * If there is an error, should console.error("oopsie") and resolve with []
  */
 function getMidtermSubjects(): Promise<string[]> {
-    // TODO
     const futureMidterm1Subjects = AsyncService.getMidterm1Subjects();
     const futureMidterm2Subjects = AsyncService.getMidterm2Subjects();
     const futureMidterm3Subjects = AsyncService.getMidterm3Subjects();
     const futureMidterm4Subjects = AsyncService.getMidterm4Subjects();
-    return Promise.reject(new Error("Stub - Not Implemented"));
+
+    const arrayOfPromises = [
+        futureMidterm1Subjects,
+        futureMidterm2Subjects,
+        futureMidterm3Subjects,
+        futureMidterm4Subjects
+    ];
+    return Promise.all(arrayOfPromises)
+        .then((midtermSubjects: string[][]) => {
+            // .concat(ms[0], ms[1] ........, ms[n - 1]);
+            return [].concat(...midtermSubjects);
+        }).catch(() => {
+            console.error("oopsie");
+            return [];
+        });
 }
 
 export {
